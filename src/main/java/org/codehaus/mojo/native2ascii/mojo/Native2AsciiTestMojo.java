@@ -27,7 +27,7 @@ public class Native2AsciiTestMojo extends Native2AsciiMojo {
   /**
    * Source directory.
    */
-  @Parameter(defaultValue = "src/test/resources")
+  @Parameter(defaultValue = "src/test/native2ascii")
   public File srcDir;
 
 
