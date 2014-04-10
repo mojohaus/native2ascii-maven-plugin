@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.codehaus.mojo.native2ascii;
+package org.codehaus.mojo.native2ascii.mojo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+import org.codehaus.mojo.native2ascii.mojo.Native2AsciiMojo;
 import org.junit.Test;
 
 

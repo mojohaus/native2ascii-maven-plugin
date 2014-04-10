@@ -14,73 +14,43 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.codehaus.mojo.native2ascii;
+package org.codehaus.mojo.native2ascii.mojo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Iterator;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.codehaus.mojo.native2ascii.Native2Ascii;
 import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Converts files with characters in any supported character encoding to one with ASCII and/or
  * Unicode escapes.
+ * <p>
+ * This mojo converts files inplace, it is not recommended to execute it on src subdirectories.
  */
 @Mojo(name = "inplace", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
-public class Native2AsciiInplaceMojo extends AbstractMojo {
+public class Native2AsciiInplaceMojo extends AbstractNative2AsciiMojo {
 
   /**
-   * Directory.
+   * Both source and target directory.
    */
   @Parameter(required = true, defaultValue = "${native2ascii.dir}")
   protected File dir;
 
-  /**
-   * The native encoding the files are in.
-   */
-  @Parameter(defaultValue = "${project.build.sourceEncoding}")
-  protected String encoding;
 
-  /**
-   * Patterns of files to include. Default is "**\/*.properties".
-   */
-  @Parameter
-  protected String[] includes;
-
-  /**
-   * Patterns of files that must be excluded.
-   */
-  @Parameter
-  protected String[] excludes;
+  @Override
+  protected File getSourceDirectory() {
+    return dir;
+  }
 
 
-  public void execute() throws MojoExecutionException, MojoFailureException {
-    if (StringUtils.isEmpty(encoding)) {
-      encoding = System.getProperty("file.encoding");
-      getLog().warn("Using platform encoding (" + encoding + " actually) to convert resources!");
-    }
-
-    if (!dir.exists()) {
-      getLog().warn("The directory '" + dir + "' does not exist!");
-      return;
-    }
-
-    if (includes == null) {
-      includes = new String[] {"**/*.properties"};
-    }
-    if (excludes == null) {
-      excludes = new String[0];
-    }
-
-    final Iterator<File> files = findFiles();
+  @Override
+  public void executeTransformation(final Iterator<File> files) throws MojoExecutionException {
     while (files.hasNext()) {
       File file = files.next();
       getLog().info("Processing " + file.getAbsolutePath());
@@ -93,22 +63,6 @@ public class Native2AsciiInplaceMojo extends AbstractMojo {
       } catch (IOException e) {
         throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
       }
-    }
-  }
-
-
-  private Iterator<File> findFiles() throws MojoExecutionException {
-
-    try {
-      getLog().info("Includes: " + Arrays.asList(includes));
-      getLog().info("Excludes: " + Arrays.asList(excludes));
-      String incl = StringUtils.join(includes, ",");
-      String excl = StringUtils.join(excludes, ",");
-      @SuppressWarnings("unchecked")
-      final Iterator<File> files = FileUtils.getFiles(dir, incl, excl).iterator();
-      return files;
-    } catch (IOException e) {
-      throw new MojoExecutionException("Unable to get list of files");
     }
   }
 }
