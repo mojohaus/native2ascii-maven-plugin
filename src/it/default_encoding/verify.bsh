@@ -1,0 +1,7 @@
+import java.io.*;
+import org.codehaus.plexus.util.*;
+
+String buildLog = FileUtils.fileRead( new File( basedir, "build.log" ) );
+if ( buildLog.indexOf( "actually) to convert resources!" ) < 0 ) {
+    throw new RuntimeException( "No warning about encoding in log" );
+}

@@ -1,0 +1,14 @@
+import java.io.*;
+import org.codehaus.plexus.util.*;
+
+String resource = FileUtils.fileRead( new File( basedir, "target/classes/resource_ru.properties" ) );
+if ( resource.indexOf( "hello=\\u041f\\u0440\\u0438\\u0432\\u0435\\u0442" ) < 0 ) {
+    throw new RuntimeException( "Resource was not converted" );
+}
+String buildLog = FileUtils.fileRead( new File( basedir, "build.log" ) );
+if ( buildLog.indexOf( "Includes: [**/*.properties]" ) < 0 ) {
+    throw new RuntimeException( "No info about includes in log" );
+}
+if ( buildLog.indexOf( "Excludes: []" ) < 0 ) {
+    throw new RuntimeException( "No info about excludes in log" );
+}

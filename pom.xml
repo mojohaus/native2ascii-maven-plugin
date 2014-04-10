@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo-parent</artifactId>
+    <version>28</version>
+    <relativePath>../mojo-parent/pom.xml</relativePath>
+  </parent>
+
+  <artifactId>native2ascii-maven-plugin</artifactId>
+  <version>1.0-beta-2-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+
+  <name>Native2Ascii Maven Plugin</name>
+  <description>Converts files with characters in any supported character encoding to one with ASCII and/or Unicode escapes.</description>
+  <url>http://mojo.codehaus.org/native2ascii-maven-plugin/</url>
+  <inceptionYear>2007</inceptionYear>
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>godin</id>
+      <name>Evgeny Mandrikov</name>
+      <email>mandrikov@gmail.com</email>
+      <timezone>+3</timezone>
+      <organization>SonarSource</organization>
+      <organizationUrl>http://sonarsource.com</organizationUrl>
+    </developer>
+    <developer>
+      <id>dantran</id>
+      <name>Dan Tran</name>
+      <email>dtran@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Martin Thelian</name>
+      <roles>
+        <role>Contributer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <prerequisites>
+    <maven>2.0.6</maven>
+  </prerequisites>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/trunk/mojo/native2ascii-maven-plugin</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/trunk/mojo/native2ascii-maven-plugin</developerConnection>
+    <url>http://svn.codehaus.org/mojo/trunk/mojo/native2ascii-maven-plugin</url>
+  </scm>
+
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.codehaus.org/browse/MOJO/component/12536</url>
+  </issueManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- To run with different Maven versions use -Dinvoker.mavenHome -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <configuration>
+          <projectsDirectory>src/it</projectsDirectory>
+          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <pomIncludes>
+            <pomInclude>*/pom.xml</pomInclude>
+          </pomIncludes>
+          <postBuildHookScript>verify</postBuildHookScript>
+          <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+          <goals>
+            <goal>clean</goal>
+            <goal>install</goal>
+          </goals>
+          <settingsFile>src/it/settings.xml</settingsFile>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <!-- Goal "install" causes failure of deployment - see http://jira.codehaus.org/browse/MINVOKER-107 -->
+              <goal>install</goal>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

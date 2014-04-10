@@ -1,0 +1,45 @@
+ ------
+ Usage
+ ------
+ Evgeny Mandrikov
+ <mandrikov@gmail.com>
+ ------
+ 2011-11-04
+ ------
+
+Usage
+
+  The plugin is bound to the <<<generate-resources>>> phase of the build lifecycle.
+  The plugin should be declared at the <<<\<build\>>>> section of the POM to trigger
+  the execution.
+
+---------------------------
+<project>
+  [...]
+  <build>
+    [...]
+    <plugins>
+      [...]
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native2ascii-maven-plugin</artifactId>
+        </executions>
+          <execution>
+            <goals>
+              <goal>native2ascii</goal>
+            </goals>
+            <configuration>
+              [...]
+            </configuration>
+          </execution>
+          [...]
+        </executions>
+        [...]
+      </plugin>
+      [...]
+    </plugins>
+    [...]
+  </build>
+  [...]
+</project>
+---------------------------
