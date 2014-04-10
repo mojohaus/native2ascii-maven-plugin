@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>example</artifactId>
+  <artifactId>includesexcludes</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <description></description>
@@ -19,6 +19,8 @@
         <artifactId>@project.artifactId@</artifactId>
         <version>@project.version@</version>
         <configuration>
+          <srcDir>${project.build.outputDirectory}</srcDir>
+          <targetDir>${project.build.outputDirectory}/native2asciified</targetDir>
           <includes>
             <include>included/**</include>
           </includes>
@@ -28,8 +30,9 @@
         </configuration>
         <executions>
           <execution>
+            <phase>package</phase>
             <goals>
-              <goal>native2ascii</goal>
+              <goal>resources</goal>
             </goals>
           </execution>
         </executions>

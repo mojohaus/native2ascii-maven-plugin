@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>example</artifactId>
+  <artifactId>filtering</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <description></description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+    <native2ascii.dir>${project.build.outputDirectory}</native2ascii.dir>
     <name>world</name>
   </properties>
 
@@ -30,7 +30,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>native2ascii</goal>
+              <goal>inplace</goal>
             </goals>
           </execution>
         </executions>

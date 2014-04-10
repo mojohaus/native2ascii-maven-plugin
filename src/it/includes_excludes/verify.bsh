@@ -1,18 +1,18 @@
 import java.io.*;
 import org.codehaus.plexus.util.*;
 
-String resource = FileUtils.fileRead( new File( basedir, "target/classes/included/resource_ru.properties" ) );
-if ( resource.indexOf( "hello=\\u041f\\u0440\\u0438\\u0432\\u0435\\u0442" ) < 0 ) {
+String resource = FileUtils.fileRead( new File( basedir, "target/classes/native2asciified/included/resource_ru.properties" ) );
+if ( resource.indexOf( "hello=\\u041F\\u0440\\u0438\\u0432\\u0435\\u0442" ) < 0 ) {
     throw new RuntimeException( "Resource was not converted" );
 }
 
-resource = FileUtils.fileRead( new File( basedir, "target/classes/not_included_resource_ru.properties" ) );
-if ( resource.indexOf( "\\u" ) > 0 ) {
+File file = new File( basedir, "target/classes/native2asciified/not_included_resource_ru.properties" );
+if ( file.exists() ) {
     throw new RuntimeException( "Not included resource was converted" );
 }
 
-resource = FileUtils.fileRead( new File( basedir, "target/classes/included/excluded_resource_ru.properties" ) );
-if ( resource.indexOf( "\\u" ) > 0 ) {
+file = new File( basedir, "target/classes/native2asciified/included/excluded_resource_ru.properties" );
+if ( file.exists() ) {
     throw new RuntimeException( "Excluded resource was converted" );
 }
 

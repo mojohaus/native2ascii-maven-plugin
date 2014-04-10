@@ -21,8 +21,11 @@
         <executions>
           <execution>
             <goals>
-              <goal>native2ascii</goal>
+              <goal>inplace</goal>
             </goals>
+            <configuration>
+              <dir>${project.build.outputDirectory}</dir>
+            </configuration>
           </execution>
         </executions>
       </plugin>
