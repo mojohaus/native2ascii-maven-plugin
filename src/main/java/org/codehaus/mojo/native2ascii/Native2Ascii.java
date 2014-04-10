@@ -76,6 +76,9 @@ public final class Native2Ascii {
     BufferedReader input = null;
     BufferedWriter output = null;
     try {
+      if (!dst.getParentFile().exists()) {
+        dst.getParentFile().mkdirs();
+      }
       input = new BufferedReader(new InputStreamReader(new FileInputStream(src), encoding));
       output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), "ISO-8859-1"));
 

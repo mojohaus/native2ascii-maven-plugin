@@ -34,20 +34,14 @@ import org.codehaus.plexus.util.StringUtils;
  * Converts files with characters in any supported character encoding to one with ASCII and/or
  * Unicode escapes.
  */
-@Mojo(name = "resources", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
-public class Native2AsciiMojo extends AbstractMojo {
+@Mojo(name = "inplace", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
+public class Native2AsciiInplaceMojo extends AbstractMojo {
 
   /**
-   * Target directory.
+   * Directory.
    */
-  @Parameter(defaultValue = "${project.build.outputDirectory}")
-  protected File targetDir;
-
-  /**
-   * Source directory.
-   */
-  @Parameter(defaultValue = "src/main/native2ascii")
-  protected File srcDir;
+  @Parameter(required = true, defaultValue = "${native2ascii.dir}")
+  protected File dir;
 
   /**
    * The native encoding the files are in.
@@ -69,13 +63,14 @@ public class Native2AsciiMojo extends AbstractMojo {
 
 
   public void execute() throws MojoExecutionException, MojoFailureException {
-    if (!srcDir.exists()) {
-      getLog().warn("Source directory does not exist: " + srcDir.getAbsolutePath());
-      return;
-    }
     if (StringUtils.isEmpty(encoding)) {
       encoding = System.getProperty("file.encoding");
       getLog().warn("Using platform encoding (" + encoding + " actually) to convert resources!");
+    }
+
+    if (!dir.exists()) {
+      getLog().warn("The directory '" + dir + "' does not exist!");
+      return;
     }
 
     if (includes == null) {
@@ -85,21 +80,16 @@ public class Native2AsciiMojo extends AbstractMojo {
       excludes = new String[0];
     }
 
-    if (!targetDir.exists()) {
-      targetDir.mkdirs();
-    }
-
     final Iterator<File> files = findFiles();
     while (files.hasNext()) {
       File file = files.next();
       getLog().info("Processing " + file.getAbsolutePath());
       try {
-        final String fileSrcBase = srcDir.getAbsolutePath();
-        final String filePath = file.getAbsolutePath();
-        getLog().info("x=" + filePath.indexOf(fileSrcBase));
-        final String fileRelPath = filePath.replaceFirst(fileSrcBase, "");
-        final File targetFile = new File(targetDir.getAbsolutePath() + File.separator + fileRelPath);
-        new Native2Ascii(getLog()).nativeToAscii(file, targetFile, encoding);
+        // Convert file in-place
+        File tempFile = File.createTempFile(file.getName(), "native2ascii");
+        new Native2Ascii(getLog()).nativeToAscii(file, tempFile, encoding);
+        FileUtils.rename(tempFile, file);
+        getLog().info("File converted successfuly: " + file.getAbsolutePath());
       } catch (IOException e) {
         throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
       }
@@ -108,13 +98,14 @@ public class Native2AsciiMojo extends AbstractMojo {
 
 
   private Iterator<File> findFiles() throws MojoExecutionException {
+
     try {
       getLog().info("Includes: " + Arrays.asList(includes));
       getLog().info("Excludes: " + Arrays.asList(excludes));
       String incl = StringUtils.join(includes, ",");
       String excl = StringUtils.join(excludes, ",");
       @SuppressWarnings("unchecked")
-      final Iterator<File> files = FileUtils.getFiles(srcDir, incl, excl).iterator();
+      final Iterator<File> files = FileUtils.getFiles(dir, incl, excl).iterator();
       return files;
     } catch (IOException e) {
       throw new MojoExecutionException("Unable to get list of files");
