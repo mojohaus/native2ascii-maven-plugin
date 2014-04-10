@@ -22,6 +22,7 @@ public class Native2AsciiMojoTest {
   @Test
   public void testFile() throws Exception {
     Native2AsciiMojo mojo = new Native2AsciiMojo();
+    mojo.encoding = "UTF-8";
     mojo.srcDir = new File(Native2AsciiMojoTest.class.getClassLoader().getResource("xxx.properties").toURI()).getParentFile();
     mojo.targetDir = mojo.srcDir.getParentFile();
     mojo.includes = new String[] {"xxx.properties"};

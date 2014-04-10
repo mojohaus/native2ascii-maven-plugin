@@ -70,9 +70,8 @@ public class Native2AsciiMojo extends AbstractNative2AsciiMojo {
       File file = files.next();
       getLog().info("Processing " + file.getAbsolutePath());
       try {
-        final String fileSrcBase = srcDir.getAbsolutePath();
+        final String fileSrcBase = getSourceDirectory().getAbsolutePath();
         final String filePath = file.getAbsolutePath();
-        getLog().info("x=" + filePath.indexOf(fileSrcBase));
         final String fileRelPath = filePath.replaceFirst(fileSrcBase, "");
         final File targetFile = new File(getTargetDirectory().getAbsolutePath() + File.separator + fileRelPath);
         new Native2Ascii(getLog()).nativeToAscii(file, targetFile, encoding);
