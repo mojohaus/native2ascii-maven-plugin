@@ -25,11 +25,16 @@ public class Native2AsciiTest {
 
   final Native2Ascii native2Ascii = new Native2Ascii(new SystemStreamLog());
 
+
   @Test
   public void test() {
     assertEquals(null, native2Ascii.nativeToAscii(null));
-    assertEquals("~", native2Ascii.nativeToAscii("\u007e"));
-    assertEquals("\\u007f", native2Ascii.nativeToAscii("\u007f"));
+    assertEquals("~", native2Ascii.nativeToAscii("~"));
+    assertEquals("\\u007F", native2Ascii.nativeToAscii(""));
+    // chinese character is random since I don't understand it
+    assertEquals("\\u7C97", native2Ascii.nativeToAscii("粗"));
+    assertEquals("\\u0158\\u00EDze\\u010Dek ut\\u00EDk\\u00E1 a \\u0159e\\u017Ee zat\\u00E1\\u010Dky! \\u00A7",
+        native2Ascii.nativeToAscii("Řízeček utíká a řeže zatáčky! §"));
   }
 
 }
