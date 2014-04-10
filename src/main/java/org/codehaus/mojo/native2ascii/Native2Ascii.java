@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.CharBuffer;
 
+import org.apache.commons.lang3.text.translate.CodePointTranslator;
 import org.apache.maven.plugin.logging.Log;
 
 /**
@@ -35,42 +36,30 @@ import org.apache.maven.plugin.logging.Log;
 public final class Native2Ascii {
 
   private final Log log;
+  private final CodePointTranslator escaper;
 
 
   /**
    * @param log - used for logging
    */
-  public Native2Ascii(Log log) {
+  public Native2Ascii(final Log log) {
     this.log = log;
+    this.escaper = new PropertyEscaper();
   }
 
 
   /**
    * Converts given CharSequence into unicode escaped ASCII String.
    *
-   * @param cs - native string
+   * @param string - native string
    * @return unicode escaped string
    */
-  public String nativeToAscii(CharSequence cs) {
-    log.debug("Converting: " + cs);
-    if (cs == null) {
+  public String nativeToAscii(final String string) {
+    log.debug("Converting: " + string);
+    if (string == null) {
       return null;
     }
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < cs.length(); i++) {
-      char c = cs.charAt(i);
-      if (c <= 0x7E) {
-        sb.append(c);
-      } else {
-        sb.append("\\u");
-        String hex = Integer.toHexString(c);
-        for (int j = hex.length(); j < 4; j++) {
-          sb.append('0');
-        }
-        sb.append(hex);
-      }
-    }
-    return sb.toString();
+    return escaper.translate(string);
   }
 
 
@@ -82,18 +71,18 @@ public final class Native2Ascii {
    * @param encoding
    * @throws IOException
    */
-  public void nativeToAscii(File src, File dst, String encoding) throws IOException {
+  public void nativeToAscii(final File src, final File dst, final String encoding) throws IOException {
     log.info("Converting: '" + src + "' to: '" + dst + "'");
     BufferedReader input = null;
     BufferedWriter output = null;
     try {
       input = new BufferedReader(new InputStreamReader(new FileInputStream(src), encoding));
-      output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), "US-ASCII"));
+      output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), "ISO-8859-1"));
 
-      char[] buffer = new char[4096];
+      final char[] buffer = new char[4096];
       int len;
       while ((len = input.read(buffer)) != -1) {
-        output.write(nativeToAscii(CharBuffer.wrap(buffer, 0, len)));
+        output.write(nativeToAscii(CharBuffer.wrap(buffer, 0, len).toString()));
       }
     } finally {
       closeQuietly(src, input);
@@ -102,11 +91,11 @@ public final class Native2Ascii {
   }
 
 
-  private void closeQuietly(File file, Closeable closeable) {
+  private void closeQuietly(final File file, final Closeable closeable) {
     if (closeable != null) {
       try {
         closeable.close();
-      } catch (IOException e) {
+      } catch (final IOException e) {
         log.warn("Could not close the file: " + file.getAbsolutePath());
       }
     }
