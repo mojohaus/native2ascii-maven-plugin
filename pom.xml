@@ -3,7 +3,7 @@
 
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>native2ascii-maven-plugin</artifactId>
-  <version>2.0-SNAPSHOT</version>
+  <version>2.0.1</version>
   <packaging>maven-plugin</packaging>
 
   <name>Native2Ascii Maven Plugin</name>
@@ -23,14 +23,6 @@
 
   <developers>
     <developer>
-      <id>godin</id>
-      <name>Evgeny Mandrikov</name>
-      <email>mandrikov@gmail.com</email>
-      <timezone>+3</timezone>
-      <organization>SonarSource</organization>
-      <organizationUrl>http://sonarsource.com</organizationUrl>
-    </developer>
-    <developer>
       <id>dmatej</id>
       <name>David Matějček</name>
       <email>dmatej79@gmail.com</email>
@@ -38,6 +30,14 @@
       <roles>
         <role>Developer</role>
       </roles>
+    </developer>
+    <developer>
+      <id>godin</id>
+      <name>Evgeny Mandrikov</name>
+      <email>mandrikov@gmail.com</email>
+      <timezone>+3</timezone>
+      <organization>SonarSource</organization>
+      <organizationUrl>http://sonarsource.com</organizationUrl>
     </developer>
     <developer>
       <id>dantran</id>
@@ -68,37 +68,37 @@
 
   <issueManagement>
     <system>JIRA</system>
-    <url>http://jira.codehaus.org/browse/MOJO/component/12536</url>
+    <url>https://github.com/dmatej/native2ascii/issues</url>
   </issueManagement>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.2.1</version>
+      <version>3.5.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-plugin-plugin</artifactId>
-      <version>3.2</version>
+      <version>3.5</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.3.1</version>
+      <version>3.5</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
   <build>
@@ -106,9 +106,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.2</version>
+        <version>3.5</version>
         <configuration>
-          <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
           <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
         </configuration>
         <executions>
@@ -124,7 +123,7 @@
         <!-- To run with different Maven versions use -Dinvoker.mavenHome -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>1.8</version>
+        <version>3.0.1</version>
         <configuration>
           <debug>false</debug>
           <projectsDirectory>src/it</projectsDirectory>
@@ -143,7 +142,6 @@
         <executions>
           <execution>
             <goals>
-              <!-- Goal "install" causes failure of deployment - see http://jira.codehaus.org/browse/MINVOKER-107 -->
               <goal>install</goal>
               <goal>run</goal>
             </goals>
@@ -152,4 +150,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
