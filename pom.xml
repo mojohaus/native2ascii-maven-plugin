@@ -60,15 +60,15 @@
   </prerequisites>
 
   <scm>
-    <connection>scm:git:git@github.com:dmatej/native2ascii.git</connection>
-    <developerConnection>scm:git:git@github.com:dmatej/native2ascii.git</developerConnection>
-    <url>https://github.com/dmatej/native2ascii</url>
+    <connection>scm:git:git@github.com:mojohaus/native2ascii.git</connection>
+    <developerConnection>scm:git:git@github.com:mojohaus/native2ascii.git</developerConnection>
+    <url>https://github.com/mojohaus/native2ascii</url>
     <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
     <system>JIRA</system>
-    <url>https://github.com/dmatej/native2ascii/issues</url>
+    <url>https://github.com/mojohaus/native2ascii/issues</url>
   </issueManagement>
 
   <dependencies>
