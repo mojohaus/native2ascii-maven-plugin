@@ -9,3 +9,5 @@ Target: Better version than 1.0-alpha-1 and 1.0-beta-1, both are incompatible an
 # Howto
 
 Look here for the usage: https://github.com/mojohaus/native2ascii/wiki/_pages
+
+Also note this issue: https://bugs.openjdk.java.net/browse/JDK-8074431 - this plugin is not affected and works even with JDK9.
