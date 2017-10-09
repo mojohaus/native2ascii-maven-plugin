@@ -18,7 +18,7 @@
     <version>40</version>
   </parent>
 
-  <url>http://mojo.codehaus.org/native2ascii-maven-plugin/</url>
+  <url>https://github.com/mojohaus/native2ascii-maven-plugin/wiki</url>
   <inceptionYear>2007</inceptionYear>
   <licenses>
     <license>
@@ -76,6 +76,16 @@
     <system>JIRA</system>
     <url>https://github.com/mojohaus/native2ascii/issues</url>
   </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>ossrh-staging</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <ciManagement>
     <system>TravisCI</system>
     <url>https://travis-ci.org/mojohaus/native2ascii-maven-plugin</url>
