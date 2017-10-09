@@ -72,11 +72,14 @@
     <url>https://github.com/mojohaus/native2ascii</url>
     <tag>HEAD</tag>
   </scm>
-
   <issueManagement>
     <system>JIRA</system>
     <url>https://github.com/mojohaus/native2ascii/issues</url>
   </issueManagement>
+  <ciManagement>
+    <system>TravisCI</system>
+    <url>https://travis-ci.org/mojohaus/native2ascii-maven-plugin</url>
+  </ciManagement>
 
   <dependencies>
     <dependency>
