@@ -11,6 +11,13 @@
     Converts files with characters in any supported character encoding to
     one with ASCII and/or Unicode escapes.
   </description>
+
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo-parent</artifactId>
+    <version>40</version>
+  </parent>
+
   <url>http://mojo.codehaus.org/native2ascii-maven-plugin/</url>
   <inceptionYear>2007</inceptionYear>
   <licenses>
