@@ -67,8 +67,8 @@
   </prerequisites>
 
   <scm>
-    <connection>scm:git:git@github.com:mojohaus/native2ascii.git</connection>
-    <developerConnection>scm:git:git@github.com:mojohaus/native2ascii.git</developerConnection>
+    <connection>scm:git:https://github.com/mojohaus/native2ascii.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/mojohaus/native2ascii.git</developerConnection>
     <url>https://github.com/mojohaus/native2ascii</url>
     <tag>HEAD</tag>
   </scm>
