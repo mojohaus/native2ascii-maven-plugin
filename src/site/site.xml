@@ -4,15 +4,15 @@
     <menu name="Overview">
       <item name="Introduction" href="index.html"/>
       <item name="Goals" href="plugin-info.html"/>
+<!--
       <item name="Usage" href="usage.html"/>
-      <!--
       <item name="FAQ" href="faq.html"/>
-      -->
+-->
     </menu>
-    <!--
     <menu name="Examples">
-      <item name="UTF8 to ASCII" href="examples/utf8-2ascii.html"/>
+      <item name="Resources to ASCII" href="examples/resources2ascii.html"/>
+      <item name="Test Resources to ASCII" href="examples/test-resources2ascii.html"/>
+      <item name="Inplace Conversion to ASCII" href="examples/inplace2ascii.html"/>
     </menu>
-    -->
   </body>
 </project>
