@@ -24,6 +24,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.shared.utils.StringUtils;
 import org.codehaus.mojo.native2ascii.Native2Ascii;
 
 /**
@@ -67,17 +68,19 @@ public class Native2AsciiMojo extends AbstractNative2AsciiMojo {
     }
 
     while (files.hasNext()) {
-      File file = files.next();
+      final File file = files.next();
       getLog().info("Processing " + file.getAbsolutePath());
       try {
-        final String fileSrcBase = getSourceDirectory().getAbsolutePath();
-        final String filePath = file.getAbsolutePath();
-        final String fileRelPath = filePath.replaceFirst(fileSrcBase, "");
-        final File targetFile = new File(getTargetDirectory().getAbsolutePath() + File.separator + fileRelPath);
-        new Native2Ascii(getLog()).nativeToAscii(file, targetFile, encoding);
-      } catch (IOException e) {
+        new Native2Ascii(getLog()).nativeToAscii(file, getTargetFile(file), encoding);
+      } catch (final IOException e) {
         throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
       }
     }
+  }
+
+
+  private File getTargetFile(final File sourceFile) throws IOException {
+    return new File(StringUtils.replace(sourceFile.getCanonicalPath(), getSourceDirectory().getCanonicalPath(),
+        getTargetDirectory().getCanonicalPath()));
   }
 }

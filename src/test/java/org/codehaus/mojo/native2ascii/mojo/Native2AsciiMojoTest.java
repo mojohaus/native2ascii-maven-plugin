@@ -18,14 +18,15 @@ package org.codehaus.mojo.native2ascii.mojo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
-import org.codehaus.mojo.native2ascii.mojo.Native2AsciiMojo;
 import org.junit.Test;
-
 
 /**
  * @author David Matějček
@@ -34,21 +35,15 @@ public class Native2AsciiMojoTest {
 
   @Test
   public void testFile() throws Exception {
-    Native2AsciiMojo mojo = new Native2AsciiMojo();
+    final Native2AsciiMojo mojo = new Native2AsciiMojo();
     mojo.encoding = "UTF-8";
-    mojo.srcDir = new File(Native2AsciiMojoTest.class.getClassLoader().getResource("xxx.properties").toURI()).getParentFile();
+    mojo.srcDir = getSourceDirectory();
     mojo.targetDir = mojo.srcDir.getParentFile();
     mojo.includes = new String[] {"xxx.properties"};
     mojo.excludes = new String[0];
     mojo.execute();
 
-    Properties properties = new Properties();
-    final FileInputStream inputStream = new FileInputStream(new File(mojo.targetDir, "xxx.properties"));
-    try {
-      properties.load(inputStream);
-    } finally {
-      inputStream.close();
-    }
+    final Properties properties = loadFile(new File(mojo.targetDir, "xxx.properties"));
     assertEquals("~", properties.get("1"));
     assertEquals("", properties.get("2"));
     assertNull(properties.get("3"));
@@ -58,4 +53,37 @@ public class Native2AsciiMojoTest {
     assertEquals("", properties.get("7"));
   }
 
+
+  @Test
+  public void testSubdirectories() throws Exception {
+    final Native2AsciiMojo mojo = new Native2AsciiMojo();
+    mojo.encoding = "UTF-8";
+    mojo.srcDir = getSourceDirectory();
+    mojo.targetDir = mojo.srcDir.getParentFile();
+    mojo.includes = new String[] {"subdirs/**/*"};
+    mojo.excludes = new String[0];
+    mojo.execute();
+
+    final File file = new File(mojo.targetDir.getCanonicalPath() + File.separator + "subdirs/x2/x3/sub.properties");
+    assertTrue("file does not exist: " + file, file.exists());
+    final Properties properties = loadFile(file);
+    assertEquals("šílené!", properties.get("crazy"));
+  }
+
+
+  private File getSourceDirectory() throws URISyntaxException {
+    return new File(Native2AsciiMojoTest.class.getClassLoader().getResource("xxx.properties").toURI()).getParentFile();
+  }
+
+
+  private Properties loadFile(final File file) throws IOException {
+    final Properties properties = new Properties();
+    final FileInputStream inputStream = new FileInputStream(file);
+    try {
+      properties.load(inputStream);
+      return properties;
+    } finally {
+      inputStream.close();
+    }
+  }
 }
