@@ -55,7 +55,9 @@ public final class Native2Ascii {
    * @return unicode escaped string
    */
   public String nativeToAscii(final String string) {
-    log.debug("Converting: " + string);
+    if (log.isDebugEnabled()) {
+      log.debug("Converting: " + string);
+    }
     if (string == null) {
       return null;
     }
