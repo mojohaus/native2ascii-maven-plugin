@@ -23,10 +23,10 @@ under the License.
     <link>https://github.com/mojohaus/native2ascii-maven-plugin/wiki</link>
     <description>Native2Ascii Maven Plugin - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2007 - 2017 MojoHaus</copyright>
+    <copyright>&#169;2007 - 2018 MojoHaus</copyright>
     <item>
       <title>File: 7,
-             Errors: 221,
+             Errors: 229,
              Warnings: 7,
              Infos: 0
       </title>
@@ -83,7 +83,7 @@ under the License.
                   4
                 </td>
                 <td>
-                  69
+                  72
                 </td>
               </tr>
                           <tr>
@@ -97,7 +97,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  38
+                  43
                 </td>
               </tr>
                           <tr>
