@@ -1,5 +1,6 @@
 /*
  * The MIT License
+ * Copyright (c) 2014-2022 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -16,25 +17,25 @@
  */
 package org.codehaus.mojo.native2ascii;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.maven.plugin.logging.SystemStreamLog;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Native2AsciiTest {
 
-  final Native2Ascii native2Ascii = new Native2Ascii(new SystemStreamLog());
+  private final Native2Ascii native2Ascii = new Native2Ascii(new SystemStreamLog());
 
 
   @Test
   public void test() {
-    assertEquals(null, native2Ascii.nativeToAscii(null));
-    assertEquals("~", native2Ascii.nativeToAscii("~"));
-    assertEquals("\\u007F", native2Ascii.nativeToAscii(""));
+    assertEquals(null, this.native2Ascii.nativeToAscii(null));
+    assertEquals("~", this.native2Ascii.nativeToAscii("~"));
+    assertEquals("\\u007F", this.native2Ascii.nativeToAscii(""));
     // chinese character is random since I don't understand it
-    assertEquals("\\u7C97", native2Ascii.nativeToAscii("粗"));
+    assertEquals("\\u7C97", this.native2Ascii.nativeToAscii("粗"));
     assertEquals("\\u0158\\u00EDze\\u010Dek ut\\u00EDk\\u00E1 a \\u0159e\\u017Ee zat\\u00E1\\u010Dky! \\u00A7",
-        native2Ascii.nativeToAscii("Řízeček utíká a řeže zatáčky! §"));
+        this.native2Ascii.nativeToAscii("Řízeček utíká a řeže zatáčky! §"));
   }
 
 }

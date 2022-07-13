@@ -1,5 +1,6 @@
 /*
  * The MIT License
+ * Copyright (c) 2014-2022 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,6 +19,7 @@ package org.codehaus.mojo.native2ascii.mojo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +29,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * @author David Matějček
@@ -53,6 +54,7 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
   public String[] excludes;
 
 
+  @Override
   public final void execute() throws MojoExecutionException, MojoFailureException {
     if (!checkParameters()) {
       return;
@@ -87,15 +89,15 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
       getLog().warn("Source directory does not exist: " + getSourceDirectory().getAbsolutePath());
       return false;
     }
-    if (includes == null) {
-      includes = new String[] {"**/*.properties"};
+    if (this.includes == null) {
+      this.includes = new String[] {"**/*.properties"};
     }
-    if (excludes == null) {
-      excludes = new String[0];
+    if (this.excludes == null) {
+      this.excludes = new String[0];
     }
-    if (StringUtils.isEmpty(encoding)) {
-      encoding = System.getProperty("file.encoding");
-      getLog().warn("Using platform encoding (" + encoding + " actually) to convert resources!");
+    if (StringUtils.isEmpty(this.encoding)) {
+      this.encoding = System.getProperty("file.encoding");
+      getLog().warn("Using platform encoding (" + this.encoding + " actually) to convert resources!");
     }
     return true;
   }
@@ -104,15 +106,14 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
   private Iterator<File> findFiles() throws MojoExecutionException {
     try {
       if (getLog().isInfoEnabled()) {
-        getLog().info("Includes: " + Arrays.asList(includes));
-        getLog().info("Excludes: " + Arrays.asList(excludes));
+        getLog().info("Includes: " + Arrays.asList(this.includes));
+        getLog().info("Excludes: " + Arrays.asList(this.excludes));
       }
-      String incl = StringUtils.join(includes, ",");
-      String excl = StringUtils.join(excludes, ",");
-      @SuppressWarnings("unchecked")
+      final String incl = StringUtils.join(this.includes, ",");
+      final String excl = StringUtils.join(this.excludes, ",");
       final Iterator<File> files = FileUtils.getFiles(getSourceDirectory(), incl, excl).iterator();
       return files;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new MojoExecutionException("Unable to get list of files");
     }
   }

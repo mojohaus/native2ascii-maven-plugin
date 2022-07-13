@@ -1,5 +1,6 @@
 /*
  * The MIT License
+ * Copyright (c) 2014-2022 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -16,9 +17,9 @@
  */
 package org.codehaus.mojo.native2ascii.mojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author David Matějček
@@ -65,7 +66,7 @@ public class Native2AsciiMojoTest {
     mojo.execute();
 
     final File file = new File(mojo.targetDir.getCanonicalPath() + File.separator + "subdirs/x2/x3/sub.properties");
-    assertTrue("file does not exist: " + file, file.exists());
+    assertTrue(file.exists(), "file does not exist: " + file);
     final Properties properties = loadFile(file);
     assertEquals("šílené!", properties.get("crazy"));
   }

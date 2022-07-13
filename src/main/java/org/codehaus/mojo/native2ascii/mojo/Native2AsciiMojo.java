@@ -1,5 +1,6 @@
 /*
  * The MIT License
+ * Copyright (c) 2014-2022 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -20,11 +21,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.shared.utils.StringUtils;
 import org.codehaus.mojo.native2ascii.Native2Ascii;
 
 /**
