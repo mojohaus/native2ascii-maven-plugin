@@ -30,17 +30,18 @@ jobs:
   openjdk:
     strategy:
       matrix:
-        jdk: [8-slim, 11-slim, 16-slim, 17-slim]
-    name: "OpenJDK ${{ matrix.jdk }}"
+        platform: [3.2.5-jdk-8, 3.5.4-jdk-8-slim, 3.6.3-openjdk-11-slim, 3.8.7-eclipse-temurin-17-alpine, 3.9.0-eclipse-temurin-19-alpine, 3.9.1-eclipse-temurin-20-alpine]
+    name: "Platform ${{ matrix.platform }}"
     runs-on: ubuntu-latest
-    container: "ghcr.io/ghcri/maven:3.8-openjdk-${{ matrix.jdk }}"
+    container: "maven:${{ matrix.platform }}"
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ matrix.jdk }}-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ matrix.platform }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-${{ matrix.jdk }}-
+            ${{ runner.os }}-maven-${{ matrix.platform }}-
       - name: 'Build'
-        run: mvn -B -V --no-transfer-progress -Prun-its clean verify --fail-at-end
+        run: mvn -B -V clean verify --fail-at-end
+
