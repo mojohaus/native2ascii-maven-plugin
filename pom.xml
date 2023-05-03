@@ -15,7 +15,7 @@
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo-parent</artifactId>
-    <version>69</version>
+    <version>74</version>
   </parent>
 
   <url>https://github.com/mojohaus/native2ascii-maven-plugin/wiki</url>
