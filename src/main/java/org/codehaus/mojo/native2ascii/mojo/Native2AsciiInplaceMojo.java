@@ -62,7 +62,7 @@ public class Native2AsciiInplaceMojo extends AbstractNative2AsciiMojo {
     Path tmpDir = createTmpDir();
     while (files.hasNext()) {
       File file = files.next();
-      getLog().debug("Processing " + file);
+      getLog().info("Converting " + file);
       try {
         File tempFile = Files.createTempFile(tmpDir, file.getName(), "native2ascii").toFile();
         new Native2Ascii(getLog()).nativeToAscii(file, tempFile, encoding);
