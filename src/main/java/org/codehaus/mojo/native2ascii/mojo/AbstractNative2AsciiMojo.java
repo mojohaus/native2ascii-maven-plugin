@@ -1,6 +1,6 @@
 /*
  * The MIT License
- * Copyright (c) 2014-2022 MojoHaus
+ * Copyright (c) 2014-2023 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -19,6 +19,7 @@ package org.codehaus.mojo.native2ascii.mojo;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -96,7 +97,7 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
       this.excludes = new String[0];
     }
     if (StringUtils.isEmpty(this.encoding)) {
-      this.encoding = System.getProperty("file.encoding");
+      this.encoding = Charset.defaultCharset().displayName();
       getLog().warn("Using platform encoding (" + this.encoding + " actually) to convert resources!");
     }
     return true;
@@ -105,9 +106,9 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
 
   private Iterator<File> findFiles() throws MojoExecutionException {
     try {
-      if (getLog().isInfoEnabled()) {
-        getLog().info("Includes: " + Arrays.asList(this.includes));
-        getLog().info("Excludes: " + Arrays.asList(this.excludes));
+      if (getLog().isDebugEnabled()) {
+        getLog().debug("Includes: " + Arrays.asList(this.includes));
+        getLog().debug("Excludes: " + Arrays.asList(this.excludes));
       }
       final String incl = StringUtils.join(this.includes, ",");
       final String excl = StringUtils.join(this.excludes, ",");

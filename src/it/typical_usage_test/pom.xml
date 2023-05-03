@@ -20,13 +20,10 @@
         <version>@project.version@</version>
         <executions>
           <execution>
+            <!-- Now we use just defaults, no additional configuration required -->
             <goals>
-              <goal>resources</goal>
+              <goal>testResources</goal>
             </goals>
-            <configuration>
-              <srcDir>src/main/mycustomdir</srcDir>
-              <targetDir>${project.build.outputDirectory}/i18n</targetDir>
-            </configuration>
           </execution>
         </executions>
       </plugin>

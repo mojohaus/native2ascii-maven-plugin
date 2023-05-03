@@ -17,9 +17,6 @@ if ( file.exists() ) {
 }
 
 String buildLog = FileUtils.fileRead( new File( basedir, "build.log" ) );
-if ( buildLog.indexOf( "Includes: [included/**]" ) < 0 ) {
-    throw new RuntimeException( "No info about includes in log" );
-}
-if ( buildLog.indexOf( "Excludes: [**/excluded*]" ) < 0 ) {
-    throw new RuntimeException( "No info about excludes in log" );
+if ( buildLog.indexOf( "Converting '" ) < 0 ) {
+    throw new RuntimeException( "No info log message about conversions" );
 }

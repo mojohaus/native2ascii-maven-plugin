@@ -1,6 +1,6 @@
 /*
  * The MIT License
- * Copyright (c) 2014-2022 MojoHaus
+ * Copyright (c) 2014-2023 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -70,7 +70,7 @@ public class Native2AsciiMojo extends AbstractNative2AsciiMojo {
 
     while (files.hasNext()) {
       final File file = files.next();
-      getLog().info("Processing " + file.getAbsolutePath());
+      getLog().debug("Processing " + file);
       try {
         new Native2Ascii(getLog()).nativeToAscii(file, getTargetFile(file), encoding);
       } catch (final IOException e) {
