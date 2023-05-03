@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 #
-name: JDKBuilds
+name: Compatibility
 
 on:
   push:
@@ -35,13 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container: "maven:${{ matrix.platform }}"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ matrix.platform }}-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-${{ matrix.platform }}-
+      - uses: actions/checkout@v3
       - name: 'Build'
         run: mvn -B -V clean verify --fail-at-end
 
