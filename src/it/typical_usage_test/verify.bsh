@@ -1,7 +1,7 @@
 import java.io.*;
 import org.codehaus.plexus.util.*;
 
-String resource = FileUtils.fileRead( new File( basedir, "target/classes/i18n/resource_ru.properties" ) );
+String resource = FileUtils.fileRead( new File( basedir, "target/test-classes/resource_ru.properties" ) );
 if ( resource.indexOf( "hello=\\u041F\\u0440\\u0438\\u0432\\u0435\\u0442" ) < 0 ) {
     throw new RuntimeException( "Resource was not converted" );
 }

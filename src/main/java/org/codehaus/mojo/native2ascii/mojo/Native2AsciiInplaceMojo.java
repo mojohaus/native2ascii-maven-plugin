@@ -1,5 +1,6 @@
 /*
  * The MIT License
+ * Copyright (c) 2023 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -53,13 +54,13 @@ public class Native2AsciiInplaceMojo extends AbstractNative2AsciiMojo {
   public void executeTransformation(final Iterator<File> files) throws MojoExecutionException {
     while (files.hasNext()) {
       File file = files.next();
-      getLog().info("Processing " + file.getAbsolutePath());
+      getLog().debug("Processing " + file);
       try {
         // Convert file in-place
         File tempFile = File.createTempFile(file.getName(), "native2ascii");
         new Native2Ascii(getLog()).nativeToAscii(file, tempFile, encoding);
         FileUtils.rename(tempFile, file);
-        getLog().info("File converted successfuly: " + file.getAbsolutePath());
+        getLog().debug("File converted successfuly: " + file);
       } catch (IOException e) {
         throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
       }

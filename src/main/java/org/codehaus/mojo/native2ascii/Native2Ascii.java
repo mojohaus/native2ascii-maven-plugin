@@ -1,6 +1,6 @@
 /*
  * The MIT License
- * Copyright (c) 2014-2022 MojoHaus
+ * Copyright (c) 2014-2023 MojoHaus
  * Copyright (c) 2007 The Codehaus
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -30,6 +30,8 @@ import java.nio.CharBuffer;
 import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.maven.plugin.logging.Log;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+
 /**
  * @author Evgeny Mandrikov
  * @author David Matejcek
@@ -56,11 +58,11 @@ public final class Native2Ascii {
    * @return unicode escaped string
    */
   public String nativeToAscii(final String string) {
-    if (this.log.isDebugEnabled()) {
-      this.log.debug("Converting: " + string);
-    }
     if (string == null) {
       return null;
+    }
+    if (this.log.isDebugEnabled()) {
+      this.log.debug("Converting string: '" + string + "'");
     }
     return this.escaper.translate(string);
   }
@@ -75,12 +77,12 @@ public final class Native2Ascii {
    * @throws IOException
    */
   public void nativeToAscii(final File src, final File dst, final String encoding) throws IOException {
-    this.log.info("Converting: '" + src + "' to: '" + dst + "'");
+    this.log.info("Converting '" + src + "' to '" + dst + "'");
     if (!dst.getParentFile().exists()) {
       dst.getParentFile().mkdirs();
     }
     try (BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(src), encoding));
-        BufferedWriter output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), "ISO-8859-1"))) {
+        BufferedWriter output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), ISO_8859_1))) {
       final char[] buffer = new char[4096];
       int len;
       while ((len = input.read(buffer)) != -1) {
