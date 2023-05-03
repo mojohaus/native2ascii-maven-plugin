@@ -70,9 +70,10 @@ public class Native2AsciiMojo extends AbstractNative2AsciiMojo {
 
     while (files.hasNext()) {
       final File file = files.next();
-      getLog().debug("Processing " + file);
       try {
-        new Native2Ascii(getLog()).nativeToAscii(file, getTargetFile(file), encoding);
+        File targetFile = getTargetFile(file);
+        getLog().info("Converting '" + file + "' to '" + targetFile +  "'");
+        new Native2Ascii(getLog()).nativeToAscii(file, targetFile, encoding);
       } catch (final IOException e) {
         throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
       }

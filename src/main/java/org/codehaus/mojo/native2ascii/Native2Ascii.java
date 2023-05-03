@@ -77,7 +77,7 @@ public final class Native2Ascii {
    * @throws IOException
    */
   public void nativeToAscii(final File src, final File dst, final String encoding) throws IOException {
-    this.log.info("Converting '" + src + "' to '" + dst + "'");
+    this.log.debug("Processing '" + src + "' to '" + dst + "'");
     if (!dst.getParentFile().exists()) {
       dst.getParentFile().mkdirs();
     }
