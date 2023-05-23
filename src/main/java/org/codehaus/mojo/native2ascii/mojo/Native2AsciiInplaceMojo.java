@@ -36,7 +36,7 @@ import org.codehaus.plexus.util.FileUtils;
  * <p>
  * This mojo converts files inplace, it is not recommended to execute it on src subdirectories.
  */
-@Mojo(name = "inplace", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
+@Mojo(name = "inplace", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
 public class Native2AsciiInplaceMojo extends AbstractNative2AsciiMojo {
 
   /**

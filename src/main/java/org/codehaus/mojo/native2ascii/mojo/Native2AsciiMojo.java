@@ -32,7 +32,7 @@ import org.codehaus.mojo.native2ascii.Native2Ascii;
  * Converts files with characters in any supported character encoding to one with ASCII and/or
  * Unicode escapes.
  */
-@Mojo(name = "resources", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
+@Mojo(name = "resources", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
 public class Native2AsciiMojo extends AbstractNative2AsciiMojo {
 
   /**

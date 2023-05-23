@@ -28,7 +28,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  *
  * @author David Matějček
  */
-@Mojo(name = "testResources", defaultPhase = LifecyclePhase.PROCESS_TEST_RESOURCES)
+@Mojo(name = "testResources", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_TEST_RESOURCES)
 public class Native2AsciiTestMojo extends Native2AsciiMojo {
 
   /**
