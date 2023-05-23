@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.codehaus.mojo.native2ascii"},{"l":"org.codehaus.mojo.native2ascii_maven_plugin"},{"l":"org.codehaus.mojo.native2ascii.mojo"}];updateSearchResults();
