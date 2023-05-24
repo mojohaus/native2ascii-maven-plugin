@@ -9,7 +9,7 @@ https://github.com/mojohaus/native2ascii-maven-plugin/actions/workflows/linux-jd
 [![CodeQL Analysis](https://github.com/mojohaus/native2ascii-maven-plugin/actions/workflows/codeql-analysis.yml/badge.svg)](
 https://github.com/mojohaus/native2ascii-maven-plugin/actions/workflows/codeql-analysis.yml)
 
-Target: Better version than 1.0-alpha-1 and 1.0-beta-1, both are incompatible and poorly documented
+Converts files with characters in any supported character encoding to one with ASCII and/or Unicode escapes.
 
 # Howto
 
