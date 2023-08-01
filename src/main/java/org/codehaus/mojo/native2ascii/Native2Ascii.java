@@ -38,56 +38,54 @@ import static java.nio.charset.StandardCharsets.ISO_8859_1;
  */
 public final class Native2Ascii {
 
-  private final Log log;
-  private final CharSequenceTranslator escaper;
+    private final Log log;
+    private final CharSequenceTranslator escaper;
 
-
-  /**
-   * @param log - used for logging
-   */
-  public Native2Ascii(final Log log) {
-    this.log = log;
-    this.escaper = new PropertyEscaper();
-  }
-
-
-  /**
-   * Converts given CharSequence into unicode escaped ASCII String.
-   *
-   * @param string - native string
-   * @return unicode escaped string
-   */
-  public String nativeToAscii(final String string) {
-    if (string == null) {
-      return null;
+    /**
+     * @param log - used for logging
+     */
+    public Native2Ascii(final Log log) {
+        this.log = log;
+        this.escaper = new PropertyEscaper();
     }
-    if (this.log.isDebugEnabled()) {
-      this.log.debug("Converting string: '" + string + "'");
-    }
-    return this.escaper.translate(string);
-  }
 
+    /**
+     * Converts given CharSequence into unicode escaped ASCII String.
+     *
+     * @param string - native string
+     * @return unicode escaped string
+     */
+    public String nativeToAscii(final String string) {
+        if (string == null) {
+            return null;
+        }
+        if (this.log.isDebugEnabled()) {
+            this.log.debug("Converting string: '" + string + "'");
+        }
+        return this.escaper.translate(string);
+    }
 
-  /**
-   * Converts given file into file unicode escaped ASCII file.
-   *
-   * @param src
-   * @param dst
-   * @param encoding
-   * @throws IOException
-   */
-  public void nativeToAscii(final File src, final File dst, final String encoding) throws IOException {
-    this.log.debug("Processing '" + src + "' to '" + dst + "'");
-    if (!dst.getParentFile().exists()) {
-      dst.getParentFile().mkdirs();
+    /**
+     * Converts given file into file unicode escaped ASCII file.
+     *
+     * @param src
+     * @param dst
+     * @param encoding
+     * @throws IOException
+     */
+    public void nativeToAscii(final File src, final File dst, final String encoding) throws IOException {
+        this.log.debug("Processing '" + src + "' to '" + dst + "'");
+        if (!dst.getParentFile().exists()) {
+            dst.getParentFile().mkdirs();
+        }
+        try (BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(src), encoding));
+                BufferedWriter output =
+                        new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), ISO_8859_1))) {
+            final char[] buffer = new char[4096];
+            int len;
+            while ((len = input.read(buffer)) != -1) {
+                output.write(nativeToAscii(CharBuffer.wrap(buffer, 0, len).toString()));
+            }
+        }
     }
-    try (BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(src), encoding));
-        BufferedWriter output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dst), ISO_8859_1))) {
-      final char[] buffer = new char[4096];
-      int len;
-      while ((len = input.read(buffer)) != -1) {
-        output.write(nativeToAscii(CharBuffer.wrap(buffer, 0, len).toString()));
-      }
-    }
-  }
 }

@@ -1,22 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.codehaus.mojo</groupId>
-  <artifactId>native2ascii-maven-plugin</artifactId>
-  <version>2.1.1-SNAPSHOT</version>
-  <packaging>maven-plugin</packaging>
-
-  <name>Native2Ascii Maven Plugin</name>
-  <description>
-    Converts files with characters in any supported character encoding to
-    one with ASCII and/or Unicode escapes.
-  </description>
 
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo-parent</artifactId>
     <version>76</version>
   </parent>
+
+  <artifactId>native2ascii-maven-plugin</artifactId>
+  <version>2.1.1-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+
+  <name>Native2Ascii Maven Plugin</name>
+  <description>Converts files with characters in any supported character encoding to
+    one with ASCII and/or Unicode escapes.</description>
 
   <url>https://github.com/mojohaus/native2ascii-maven-plugin/wiki</url>
   <inceptionYear>2007</inceptionYear>
@@ -33,18 +31,18 @@
       <id>dmatej</id>
       <name>David Matějček</name>
       <email>dmatej@seznam.cz</email>
-      <timezone>+1</timezone>
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>+1</timezone>
     </developer>
     <developer>
       <id>godin</id>
       <name>Evgeny Mandrikov</name>
       <email>mandrikov@gmail.com</email>
-      <timezone>+3</timezone>
       <organization>SonarSource</organization>
       <organizationUrl>http://sonarsource.com</organizationUrl>
+      <timezone>+3</timezone>
     </developer>
     <developer>
       <id>dantran</id>
@@ -65,13 +63,17 @@
   <scm>
     <connection>scm:git:https://github.com/mojohaus/native2ascii.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mojohaus/native2ascii.git</developerConnection>
-    <url>https://github.com/mojohaus/native2ascii</url>
     <tag>HEAD</tag>
+    <url>https://github.com/mojohaus/native2ascii</url>
   </scm>
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/mojohaus/native2ascii/issues</url>
   </issueManagement>
+  <ciManagement>
+    <system>GitHub</system>
+    <url>https://github.com/mojohaus/native2ascii-maven-plugin/actions</url>
+  </ciManagement>
   <distributionManagement>
     <repository>
       <id>ossrh-staging</id>
@@ -82,10 +84,6 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-  <ciManagement>
-    <system>GitHub</system>
-    <url>https://github.com/mojohaus/native2ascii-maven-plugin/actions</url>
-  </ciManagement>
 
   <dependencies>
     <dependency>
@@ -136,12 +134,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
 
   <build>
     <plugins>

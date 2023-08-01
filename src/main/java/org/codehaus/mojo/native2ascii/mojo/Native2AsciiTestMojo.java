@@ -31,30 +31,28 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "testResources", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_TEST_RESOURCES)
 public class Native2AsciiTestMojo extends Native2AsciiMojo {
 
-  /**
-   * Target directory.
-   */
-  @Parameter(defaultValue = "${project.build.testOutputDirectory}")
-  public File targetDir;
+    /**
+     * Target directory.
+     */
+    @Parameter(defaultValue = "${project.build.testOutputDirectory}")
+    public File targetDir;
 
-  /**
-   * Source directory.
-   */
-  @Parameter(defaultValue = "src/test/native2ascii")
-  public File srcDir;
+    /**
+     * Source directory.
+     */
+    @Parameter(defaultValue = "src/test/native2ascii")
+    public File srcDir;
 
+    @Override
+    protected File getSourceDirectory() {
+        return srcDir;
+    }
 
-  @Override
-  protected File getSourceDirectory() {
-    return srcDir;
-  }
-
-
-  /**
-   * @return the target directory
-   */
-  @Override
-  protected File getTargetDirectory() {
-    return targetDir;
-  }
+    /**
+     * @return the target directory
+     */
+    @Override
+    protected File getTargetDirectory() {
+        return targetDir;
+    }
 }

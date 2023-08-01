@@ -39,47 +39,46 @@ import org.codehaus.plexus.util.FileUtils;
 @Mojo(name = "inplace", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
 public class Native2AsciiInplaceMojo extends AbstractNative2AsciiMojo {
 
-  /**
-   * Both source and target directory.
-   */
-  @Parameter(required = true, defaultValue = "${native2ascii.dir}")
-  protected File dir;
+    /**
+     * Both source and target directory.
+     */
+    @Parameter(required = true, defaultValue = "${native2ascii.dir}")
+    protected File dir;
 
-  /**
-   * The project's target directory.
-   */
-  @Parameter(required = true, readonly = true, property = "project.build.directory")
-  private File targetDir;
+    /**
+     * The project's target directory.
+     */
+    @Parameter(required = true, readonly = true, property = "project.build.directory")
+    private File targetDir;
 
-  @Override
-  protected File getSourceDirectory() {
-    return dir;
-  }
-
-
-  @Override
-  public void executeTransformation(final Iterator<File> files) throws MojoExecutionException {
-    Path tmpDir = createTmpDir();
-    while (files.hasNext()) {
-      File file = files.next();
-      getLog().info("Converting " + file);
-      try {
-        File tempFile = Files.createTempFile(tmpDir, file.getName(), "native2ascii").toFile();
-        new Native2Ascii(getLog()).nativeToAscii(file, tempFile, encoding);
-        FileUtils.rename(tempFile, file);
-        getLog().debug("File converted successfuly: " + file);
-      } catch (IOException e) {
-        throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
-      }
+    @Override
+    protected File getSourceDirectory() {
+        return dir;
     }
-  }
 
-
-  private Path createTmpDir() throws MojoExecutionException {
-    try {
-      return Files.createTempDirectory(targetDir.toPath(), "tmp");
-    } catch (IOException e) {
-      throw new MojoExecutionException("Could not create temporary directory under the " + targetDir, e);
+    @Override
+    public void executeTransformation(final Iterator<File> files) throws MojoExecutionException {
+        Path tmpDir = createTmpDir();
+        while (files.hasNext()) {
+            File file = files.next();
+            getLog().info("Converting " + file);
+            try {
+                File tempFile = Files.createTempFile(tmpDir, file.getName(), "native2ascii")
+                        .toFile();
+                new Native2Ascii(getLog()).nativeToAscii(file, tempFile, encoding);
+                FileUtils.rename(tempFile, file);
+                getLog().debug("File converted successfuly: " + file);
+            } catch (IOException e) {
+                throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
+            }
+        }
     }
-  }
+
+    private Path createTmpDir() throws MojoExecutionException {
+        try {
+            return Files.createTempDirectory(targetDir.toPath(), "tmp");
+        } catch (IOException e) {
+            throw new MojoExecutionException("Could not create temporary directory under the " + targetDir, e);
+        }
+    }
 }

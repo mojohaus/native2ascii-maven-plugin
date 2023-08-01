@@ -26,11 +26,10 @@ import org.apache.commons.text.translate.UnicodeEscaper;
  */
 public class PropertyEscaper extends UnicodeEscaper {
 
-  /**
-   * Constructor using {@link UnicodeEscaper#UnicodeEscaper(int, int, boolean)}
-   */
-  public PropertyEscaper() {
-    super(0x007F, Integer.MAX_VALUE, true);
-  }
-
+    /**
+     * Constructor using {@link UnicodeEscaper#UnicodeEscaper(int, int, boolean)}
+     */
+    public PropertyEscaper() {
+        super(0x007F, Integer.MAX_VALUE, true);
+    }
 }
