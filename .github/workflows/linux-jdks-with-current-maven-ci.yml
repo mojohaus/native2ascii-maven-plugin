@@ -30,7 +30,7 @@ jobs:
   openjdk:
     strategy:
       matrix:
-        platform: [3.2.5-jdk-8, 3.5.4-jdk-8-slim, 3.6.3-openjdk-11-slim, 3.8.7-eclipse-temurin-17-alpine, 3.9.0-eclipse-temurin-19-alpine, 3.9.1-eclipse-temurin-20-alpine]
+        platform: [3.6-openjdk-8-slim, 3.9-eclipse-temurin-8, 3.6-openjdk-11-slim, 3.8-eclipse-temurin-17-alpine, 3.9-eclipse-temurin-20-alpine]
     name: "Platform ${{ matrix.platform }}"
     runs-on: ubuntu-latest
     container: "maven:${{ matrix.platform }}"
