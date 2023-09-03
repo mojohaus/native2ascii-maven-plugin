@@ -35,54 +35,52 @@ import org.codehaus.mojo.native2ascii.Native2Ascii;
 @Mojo(name = "resources", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
 public class Native2AsciiMojo extends AbstractNative2AsciiMojo {
 
-  /**
-   * Target directory.
-   */
-  @Parameter(defaultValue = "${project.build.outputDirectory}")
-  public File targetDir;
+    /**
+     * Target directory.
+     */
+    @Parameter(defaultValue = "${project.build.outputDirectory}")
+    public File targetDir;
 
-  /**
-   * Source directory.
-   */
-  @Parameter(defaultValue = "src/main/native2ascii")
-  public File srcDir;
+    /**
+     * Source directory.
+     */
+    @Parameter(defaultValue = "src/main/native2ascii")
+    public File srcDir;
 
-
-  @Override
-  protected File getSourceDirectory() {
-    return srcDir;
-  }
-
-
-  /**
-   * @return the target directory
-   */
-  protected File getTargetDirectory() {
-    return targetDir;
-  }
-
-
-  @Override
-  public void executeTransformation(final Iterator<File> files) throws MojoExecutionException {
-    if (!getTargetDirectory().exists()) {
-      getTargetDirectory().mkdirs();
+    @Override
+    protected File getSourceDirectory() {
+        return srcDir;
     }
 
-    while (files.hasNext()) {
-      final File file = files.next();
-      try {
-        File targetFile = getTargetFile(file);
-        getLog().info("Converting '" + file + "' to '" + targetFile +  "'");
-        new Native2Ascii(getLog()).nativeToAscii(file, targetFile, encoding);
-      } catch (final IOException e) {
-        throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
-      }
+    /**
+     * @return the target directory
+     */
+    protected File getTargetDirectory() {
+        return targetDir;
     }
-  }
 
+    @Override
+    public void executeTransformation(final Iterator<File> files) throws MojoExecutionException {
+        if (!getTargetDirectory().exists()) {
+            getTargetDirectory().mkdirs();
+        }
 
-  private File getTargetFile(final File sourceFile) throws IOException {
-    return new File(StringUtils.replace(sourceFile.getCanonicalPath(), getSourceDirectory().getCanonicalPath(),
-        getTargetDirectory().getCanonicalPath()));
-  }
+        while (files.hasNext()) {
+            final File file = files.next();
+            try {
+                File targetFile = getTargetFile(file);
+                getLog().info("Converting '" + file + "' to '" + targetFile + "'");
+                new Native2Ascii(getLog()).nativeToAscii(file, targetFile, encoding);
+            } catch (final IOException e) {
+                throw new MojoExecutionException("Unable to convert " + file.getAbsolutePath(), e);
+            }
+        }
+    }
+
+    private File getTargetFile(final File sourceFile) throws IOException {
+        return new File(StringUtils.replace(
+                sourceFile.getCanonicalPath(),
+                getSourceDirectory().getCanonicalPath(),
+                getTargetDirectory().getCanonicalPath()));
+    }
 }

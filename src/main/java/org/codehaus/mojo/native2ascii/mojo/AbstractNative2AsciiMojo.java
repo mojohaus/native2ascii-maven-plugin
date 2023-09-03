@@ -30,93 +30,88 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
 
-
 /**
  * @author David Matějček
  */
 public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
 
-  /**
-   * The native encoding the files are in.
-   */
-  @Parameter(defaultValue = "${project.build.sourceEncoding}")
-  public String encoding;
+    /**
+     * The native encoding the files are in.
+     */
+    @Parameter(defaultValue = "${project.build.sourceEncoding}")
+    public String encoding;
 
-  /**
-   * Patterns of files to include. Default is "**\/*.properties".
-   */
-  @Parameter
-  public String[] includes;
+    /**
+     * Patterns of files to include. Default is "**\/*.properties".
+     */
+    @Parameter
+    public String[] includes;
 
-  /**
-   * Patterns of files that must be excluded.
-   */
-  @Parameter
-  public String[] excludes;
+    /**
+     * Patterns of files that must be excluded.
+     */
+    @Parameter
+    public String[] excludes;
 
-
-  @Override
-  public final void execute() throws MojoExecutionException, MojoFailureException {
-    if (!checkParameters()) {
-      return;
+    @Override
+    public final void execute() throws MojoExecutionException, MojoFailureException {
+        if (!checkParameters()) {
+            return;
+        }
+        final Iterator<File> files = findFiles();
+        executeTransformation(files);
     }
-    final Iterator<File> files = findFiles();
-    executeTransformation(files);
-  }
 
+    /**
+     * @return the root directory where the plugin should look for files.
+     */
+    protected abstract File getSourceDirectory();
 
-  /**
-   * @return the root directory where the plugin should look for files.
-   */
-  protected abstract File getSourceDirectory();
+    /**
+     * Executes the transformation of files.
+     *
+     * @param files
+     * @throws MojoExecutionException
+     */
+    protected abstract void executeTransformation(Iterator<File> files) throws MojoExecutionException;
 
-
-  /**
-   * Executes the transformation of files.
-   *
-   * @param files
-   * @throws MojoExecutionException
-   */
-  protected abstract void executeTransformation(Iterator<File> files) throws MojoExecutionException;
-
-
-  /**
-   * Checks all attributes. Override if needed.
-   *
-   * @return true if we can continue
-   */
-  protected boolean checkParameters() {
-    if (!getSourceDirectory().exists()) {
-      getLog().warn("Source directory does not exist: " + getSourceDirectory().getAbsolutePath());
-      return false;
+    /**
+     * Checks all attributes. Override if needed.
+     *
+     * @return true if we can continue
+     */
+    protected boolean checkParameters() {
+        if (!getSourceDirectory().exists()) {
+            getLog().warn("Source directory does not exist: "
+                    + getSourceDirectory().getAbsolutePath());
+            return false;
+        }
+        if (this.includes == null) {
+            this.includes = new String[] {"**/*.properties"};
+        }
+        if (this.excludes == null) {
+            this.excludes = new String[0];
+        }
+        if (StringUtils.isEmpty(this.encoding)) {
+            this.encoding = Charset.defaultCharset().displayName();
+            getLog().warn("Using platform encoding (" + this.encoding + " actually) to convert resources!");
+        }
+        return true;
     }
-    if (this.includes == null) {
-      this.includes = new String[] {"**/*.properties"};
-    }
-    if (this.excludes == null) {
-      this.excludes = new String[0];
-    }
-    if (StringUtils.isEmpty(this.encoding)) {
-      this.encoding = Charset.defaultCharset().displayName();
-      getLog().warn("Using platform encoding (" + this.encoding + " actually) to convert resources!");
-    }
-    return true;
-  }
 
-
-  private Iterator<File> findFiles() throws MojoExecutionException {
-    try {
-      if (getLog().isDebugEnabled()) {
-        getLog().debug("Includes: " + Arrays.asList(this.includes));
-        getLog().debug("Excludes: " + Arrays.asList(this.excludes));
-      }
-      final String incl = StringUtils.join(this.includes, ",");
-      final String excl = StringUtils.join(this.excludes, ",");
-      final Iterator<File> files = FileUtils.getFiles(getSourceDirectory(), incl, excl).iterator();
-      return files;
-    } catch (final IOException e) {
-      throw new MojoExecutionException("Unable to get list of files");
+    private Iterator<File> findFiles() throws MojoExecutionException {
+        try {
+            if (getLog().isDebugEnabled()) {
+                getLog().debug("Includes: " + Arrays.asList(this.includes));
+                getLog().debug("Excludes: " + Arrays.asList(this.excludes));
+            }
+            final String incl = StringUtils.join(this.includes, ",");
+            final String excl = StringUtils.join(this.excludes, ",");
+            final Iterator<File> files =
+                    FileUtils.getFiles(getSourceDirectory(), incl, excl).iterator();
+            return files;
+        } catch (final IOException e) {
+            throw new MojoExecutionException("Unable to get list of files");
+        }
     }
-  }
-
 }
