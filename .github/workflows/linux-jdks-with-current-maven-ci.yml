@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container: "maven:${{ matrix.platform }}"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: 'Build'
         run: mvn -B -V clean verify --fail-at-end
 
