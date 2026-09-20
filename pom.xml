@@ -60,6 +60,10 @@
     </developer>
   </developers>
 
+  <prerequisites>
+    <maven>3.6.3</maven>
+  </prerequisites>
+
   <scm>
     <connection>scm:git:https://github.com/mojohaus/native2ascii.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mojohaus/native2ascii.git</developerConnection>
@@ -85,6 +89,12 @@
     </snapshotRepository>
   </distributionManagement>
 
+  <properties>
+    <mavenVersion>3.9.16</mavenVersion>
+    <!-- mojo-parent 97 ties the build floor to mavenVersion; keep building on the Maven the CI matrix uses -->
+    <minimalMavenBuildVersion>3.6.3</minimalMavenBuildVersion>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
@@ -94,7 +104,7 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.9.16</version>
+      <version>${mavenVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
