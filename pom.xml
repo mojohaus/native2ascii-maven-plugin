@@ -90,7 +90,7 @@
   </distributionManagement>
 
   <properties>
-    <mavenVersion>3.9.16</mavenVersion>
+    <mavenVersion>3.10.0</mavenVersion>
     <!-- mojo-parent 97 ties the build floor to mavenVersion; keep building on the Maven the CI matrix uses -->
     <minimalMavenBuildVersion>3.6.3</minimalMavenBuildVersion>
   </properties>
