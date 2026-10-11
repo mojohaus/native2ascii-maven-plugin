@@ -6,7 +6,7 @@
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
 #
-#   http://www.apache.org/licenses/LICENSE-2.0
+#       http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
@@ -14,28 +14,19 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
-name: Compatibility
 
-on:
-  push:
-    branches:
-      - master
-      - '*'
-  pull_request:
-    branches:
-      - '*'
+name: GitHub CI
+
+on: [push, pull_request]
 
 jobs:
-  openjdk:
-    strategy:
-      matrix:
-        platform: [3.6-openjdk-8-slim, 3.9-eclipse-temurin-8, 3.6-openjdk-11-slim, 3.8-eclipse-temurin-17-alpine, 3.9-eclipse-temurin-20-alpine]
-    name: "Platform ${{ matrix.platform }}"
-    runs-on: ubuntu-latest
-    container: "maven:${{ matrix.platform }}"
-    steps:
-      - uses: actions/checkout@v7
-      - name: 'Build'
-        run: mvn -B -V clean verify --fail-at-end
-
+  build:
+    name: Verify
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v5
+    with:
+      matrix-exclude: >
+        [
+          {"os": "macos-latest", "jdk": "8"},
+          {"os": "macos-latest", "jdk": "21"},
+          {"os": "windows-latest", "jdk": "21"}
+        ]
