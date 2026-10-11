@@ -1,11 +1,5 @@
-import java.io.*;
-import org.codehaus.plexus.util.*;
+def resource = new File(basedir, "target/classes/i18n/resource_ru.properties").getText("UTF-8")
+assert resource.contains('hello=\\u041F\\u0440\\u0438\\u0432\\u0435\\u0442') : "Resource was not converted"
 
-String resource = FileUtils.fileRead( new File( basedir, "target/classes/i18n/resource_ru.properties" ) );
-if ( resource.indexOf( "hello=\\u041F\\u0440\\u0438\\u0432\\u0435\\u0442" ) < 0 ) {
-    throw new RuntimeException( "Resource was not converted" );
-}
-String buildLog = FileUtils.fileRead( new File( basedir, "build.log" ) );
-if ( buildLog.indexOf( "Converting '" ) < 0 ) {
-    throw new RuntimeException( "No info log message about conversions" );
-}
+def buildLog = new File(basedir, "build.log").getText("UTF-8")
+assert buildLog.contains("Converting '") : "No info log message about conversions"

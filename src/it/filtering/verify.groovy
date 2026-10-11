@@ -1,7 +1,2 @@
-import java.io.*;
-import org.codehaus.plexus.util.*;
-
-String resource = FileUtils.fileRead( new File( basedir, "target/classes/resource_ru.properties" ) );
-if ( resource.indexOf( "hello=\\u041F\\u0440\\u0438\\u0432\\u0435\\u0442 world" ) < 0 ) {
-    throw new RuntimeException( "Resource was not converted" );
-}
+def resource = new File(basedir, "target/classes/resource_ru.properties").getText("UTF-8")
+assert resource.contains('hello=\\u041F\\u0440\\u0438\\u0432\\u0435\\u0442 world') : "Resource was not converted"
