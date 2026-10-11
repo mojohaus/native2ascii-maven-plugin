@@ -90,6 +90,8 @@
   </distributionManagement>
 
   <properties>
+    <!-- run the ITs in parallel, one per CPU core -->
+    <invoker.parallelThreads>1C</invoker.parallelThreads>
     <mavenVersion>3.10.0</mavenVersion>
     <!-- mojo-parent 97 ties the build floor to mavenVersion; keep building on the Maven the CI matrix uses -->
     <minimalMavenBuildVersion>3.6.3</minimalMavenBuildVersion>
@@ -156,6 +158,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
         <configuration>
+          <environmentVariables>
+            <!-- each IT is a short-lived JVM: C2 compilation and parallel GC only add startup time -->
+            <JAVA_TOOL_OPTIONS>-XX:TieredStopAtLevel=1 -XX:+UseSerialGC</JAVA_TOOL_OPTIONS>
+          </environmentVariables>
           <debug>false</debug>
           <projectsDirectory>src/it</projectsDirectory>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
