@@ -12,3 +12,5 @@ Converts files with characters in any supported character encoding to one with A
 Look here for the usage: https://github.com/mojohaus/native2ascii/wiki/_pages
 
 Also note this issue: https://bugs.openjdk.java.net/browse/JDK-8074431 - this plugin is not affected and works even with JDK18.
+
+Conventions for contributors and agents are in [AGENTS.md](AGENTS.md).
