@@ -21,14 +21,15 @@ import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class Native2AsciiTest {
+class Native2AsciiTest {
 
     private final Native2Ascii native2Ascii = new Native2Ascii(new SystemStreamLog());
 
     @Test
-    public void test() {
-        assertEquals(null, this.native2Ascii.nativeToAscii(null));
+    void test() {
+        assertNull(this.native2Ascii.nativeToAscii(null));
         assertEquals("~", this.native2Ascii.nativeToAscii("~"));
         assertEquals("\\u007F", this.native2Ascii.nativeToAscii(""));
         // chinese character is random since I don't understand it

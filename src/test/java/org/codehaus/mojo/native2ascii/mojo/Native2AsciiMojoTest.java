@@ -32,10 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author David Matějček
  */
-public class Native2AsciiMojoTest {
+class Native2AsciiMojoTest {
 
     @Test
-    public void testFile() throws Exception {
+    void file() throws Exception {
         final Native2AsciiMojo mojo = new Native2AsciiMojo();
         mojo.encoding = "UTF-8";
         mojo.srcDir = getSourceDirectory();
@@ -55,7 +55,7 @@ public class Native2AsciiMojoTest {
     }
 
     @Test
-    public void testSubdirectories() throws Exception {
+    void subdirectories() throws Exception {
         final Native2AsciiMojo mojo = new Native2AsciiMojo();
         mojo.encoding = "UTF-8";
         mojo.srcDir = getSourceDirectory();
