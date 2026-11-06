@@ -1,19 +1,15 @@
- ------
- Converting Resources Inplace
- ------
- David Matejcek
- ------
- 2017-12-23
- ------
+title: Converting Resources Inplace
+author: David Matejcek
+date: 2017-12-23
 
-Converting UTF-8 properties to standard inplace
+# Converting UTF-8 properties to standard inplace
 
-  This goal targets the scenario known from 1-beta version - conversion of
-  UTF-8 file content to Unicode-escaped content on the same file.
+This goal targets the scenario known from 1-beta version - conversion of
+UTF-8 file content to Unicode-escaped content on the same file.
 
-  Note that this target is not covered by eclipse lifecycle.
+Note that this target is not covered by eclipse lifecycle.
 
----
+```xml
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>native2ascii-maven-plugin</artifactId>
@@ -38,4 +34,5 @@ Converting UTF-8 properties to standard inplace
     </execution>
   </executions>
 </plugin>
----
+```
+
