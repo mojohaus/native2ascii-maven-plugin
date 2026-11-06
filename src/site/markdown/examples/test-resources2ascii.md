@@ -1,17 +1,13 @@
- ------
- Converting Test Resources
- ------
- David Matejcek
- ------
- 2017-12-23
- ------
+title: Converting Test Resources
+author: David Matejcek
+date: 2017-12-23
 
-Converting UTF-8 properties to standard
+# Converting UTF-8 properties to standard
 
-  This goal targets the basic testing scenario - conversion of UTF-8 files to Unicode-escaped files
-  without any change of the originals or the target artifact.
+This goal targets the basic testing scenario - conversion of UTF-8 files to Unicode-escaped files
+without any change of the originals or the target artifact.
 
----
+```xml
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>native2ascii-maven-plugin</artifactId>
@@ -37,4 +33,5 @@ Converting UTF-8 properties to standard
     </execution>
   </executions>
 </plugin>
----
+```
+
