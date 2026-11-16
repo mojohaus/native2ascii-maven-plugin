@@ -107,9 +107,7 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
             }
             final String incl = StringUtils.join(this.includes, ",");
             final String excl = StringUtils.join(this.excludes, ",");
-            final Iterator<File> files =
-                    FileUtils.getFiles(getSourceDirectory(), incl, excl).iterator();
-            return files;
+            return FileUtils.getFiles(getSourceDirectory(), incl, excl).iterator();
         } catch (final IOException e) {
             throw new MojoExecutionException("Unable to get list of files");
         }
