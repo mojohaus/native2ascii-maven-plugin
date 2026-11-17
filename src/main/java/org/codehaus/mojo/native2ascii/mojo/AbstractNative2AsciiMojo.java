@@ -92,7 +92,7 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
         if (this.excludes == null) {
             this.excludes = new String[0];
         }
-        if (this.encoding == null || this.encoding.isEmpty()) {
+        if (StringUtils.isEmpty(this.encoding)) {
             this.encoding = Charset.defaultCharset().displayName();
             getLog().warn("Using platform encoding (" + this.encoding + " actually) to convert resources!");
         }
