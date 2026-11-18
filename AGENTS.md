@@ -10,7 +10,7 @@ This is a single-module Maven plugin. The goals are `resources` (`Native2AsciiMo
 the resource phases and all extending `AbstractNative2AsciiMojo`. The conversion itself is in
 `Native2Ascii` (file and directory conversion) and `PropertyEscaper` (the escaping).
 
-- The site is built from APT pages in `src/site/apt`.
+- The site is built from Markdown pages in `src/site/markdown`.
 - The project is MIT licensed, unlike most of MojoHaus. Keep each file's existing header.
 
 ## Build gates
@@ -58,9 +58,8 @@ the resource phases and all extending `AbstractNative2AsciiMojo`. The conversion
 
 ## Continuous integration
 
-- `.github/workflows/maven.yml` calls the shared `maven-verify.yml@v5` workflow from
-  `apache/maven-gh-actions-shared`, with `verify` as the build goal. It does not pass
-  `-P run-its`, because Maven 4 fails on a requested profile that does not exist.
+- `.github/workflows/maven.yml` calls the MojoHaus `maven-verify.yml` reusable workflow in
+  `mojohaus/.github` at `@master`, which sets the JDK and OS matrix and runs Maven verify.
 - A separate `codeql-analysis.yml` workflow runs CodeQL on pull requests and weekly.
 - Branches pushed to this repository build under the `push` event.
 
