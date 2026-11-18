@@ -80,12 +80,9 @@ class Native2AsciiMojoTest {
 
     private Properties loadFile(final File file) throws IOException {
         final Properties properties = new Properties();
-        final FileInputStream inputStream = new FileInputStream(file);
-        try {
+        try (FileInputStream inputStream = new FileInputStream(file)) {
             properties.load(inputStream);
             return properties;
-        } finally {
-            inputStream.close();
         }
     }
 }
