@@ -40,10 +40,10 @@ the resource phases and all extending `AbstractNative2AsciiMojo`. The conversion
   The invoker `install` goal puts the plugin into `target/local-repo` first. Run a subset with:
 
   ```shell
-  mvn -B verify -Dinvoker.test=typical_usage,no_classes
+  mvn -B verify -Dinvoker.test=typical_usage_test,filtering
   ```
 
-  There are no `setup-*` projects. `no_classes` has no `verify.groovy`; it only has to build.
+  There are no `setup-*` projects.
 
 - They run in parallel, one per CPU core (`invoker.parallelThreads` 1C), and every forked Maven
   gets `JAVA_TOOL_OPTIONS=-XX:TieredStopAtLevel=1 -XX:+UseSerialGC`. A test must not depend on
@@ -52,6 +52,10 @@ the resource phases and all extending `AbstractNative2AsciiMojo`. The conversion
 - The projects run `clean install`, then `verify.groovy`. Write it as `assert` statements.
   Invoker fails a script whose last expression is anything other than `true` or `null`, so a
   trailing `list.each { }` fails the test; use a `for` loop.
+
+- Behavior that does not depend on the Maven lifecycle, such as includes and excludes or a missing source
+  directory, is covered by `Native2AsciiMojoTest`. The ITs that remain check the plugin descriptor: default
+  directories and goal binding.
 
 - `default_encoding` reads `build.log` and the `mavenVersion` variable: Maven 3.10 sets
   `project.build.sourceEncoding` to UTF-8 by default, so the platform-encoding warning is expected
