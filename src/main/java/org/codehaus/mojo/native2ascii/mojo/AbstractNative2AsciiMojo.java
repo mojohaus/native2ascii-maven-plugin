@@ -36,7 +36,8 @@ import org.codehaus.plexus.util.FileUtils;
 public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
 
     /**
-     * The native encoding the files are in.
+     * The native encoding the files are in. If it is not set, the platform encoding is used and a warning is
+     * logged.
      */
     @Parameter(defaultValue = "${project.build.sourceEncoding}")
     public String encoding;
@@ -48,7 +49,7 @@ public abstract class AbstractNative2AsciiMojo extends AbstractMojo {
     public String[] includes;
 
     /**
-     * Patterns of files that must be excluded.
+     * Patterns of files that must be excluded. Nothing is excluded by default.
      */
     @Parameter
     public String[] excludes;

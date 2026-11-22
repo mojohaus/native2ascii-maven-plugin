@@ -11,4 +11,17 @@ but runtime needs ASCII and supports Unicode-escaped characters just like Java's
 This plugin converts files in any supported character encoding to one with ASCII
 and/or Unicode escapes.
 
-See [Goals](./plugin-info.html) and Examples to see more.
+The plugin requires Maven 3.9.0 or later and Java 8 or later.
+
+## Goals Overview
+
+* [native2ascii:resources](./resources-mojo.html) Converts the files in `src/main/native2ascii` and writes the result to the output directory, keeping the originals.
+* [native2ascii:testResources](./testResources-mojo.html) Converts the files in `src/test/native2ascii` and writes the result to the test output directory.
+* [native2ascii:inplace](./inplace-mojo.html) Converts the files of one directory in place.
+
+See [Goals](./plugin-info.html) and the examples to see more:
+
+* [Converting Resources](./examples/resources2ascii.html)
+* [Converting Test Resources](./examples/test-resources2ascii.html)
+* [Converting Resources Inplace](./examples/inplace2ascii.html)
+
