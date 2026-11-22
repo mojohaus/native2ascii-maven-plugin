@@ -31,6 +31,9 @@ import org.codehaus.mojo.native2ascii.Native2Ascii;
 /**
  * Converts files with characters in any supported character encoding to one with ASCII and/or
  * Unicode escapes.
+ * <p>
+ * The files are read from <code>srcDir</code> (<code>src/main/native2ascii</code>) and written to
+ * <code>targetDir</code> (the project output directory) with the same relative paths; the originals are not changed.
  */
 @Mojo(name = "resources", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
 public class Native2AsciiMojo extends AbstractNative2AsciiMojo {

@@ -25,6 +25,9 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Converts files with characters in any supported character encoding to one with ASCII and/or
  * Unicode escapes.
+ * <p>
+ * The files are read from <code>srcDir</code> (<code>src/test/native2ascii</code>) and written to
+ * <code>targetDir</code> (the project test output directory); the originals are not changed.
  *
  * @author David Matějček
  */

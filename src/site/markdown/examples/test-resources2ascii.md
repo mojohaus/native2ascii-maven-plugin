@@ -11,7 +11,6 @@ without any change of the originals or the target artifact.
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>native2ascii-maven-plugin</artifactId>
-  <version>____</version>
   <executions>
     <execution>
       <id>utf8-to-latin1</id>

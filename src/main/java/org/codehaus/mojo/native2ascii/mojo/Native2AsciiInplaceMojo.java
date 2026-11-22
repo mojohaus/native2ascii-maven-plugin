@@ -46,7 +46,7 @@ public class Native2AsciiInplaceMojo extends AbstractNative2AsciiMojo {
     protected File dir;
 
     /**
-     * The project's target directory.
+     * The project's build directory, under which the temporary files of the conversion are created.
      */
     @Parameter(required = true, readonly = true, property = "project.build.directory")
     private File targetDir;
